@@ -1,5 +1,6 @@
 package com.reactspringboot.bookclubbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -34,6 +35,7 @@ public class Account {
     @CreationTimestamp
     private Date dateJoined;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Review> reviews;
 

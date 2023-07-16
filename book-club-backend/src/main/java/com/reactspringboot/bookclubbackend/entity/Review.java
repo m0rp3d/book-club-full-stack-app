@@ -1,5 +1,6 @@
 package com.reactspringboot.bookclubbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -25,10 +26,12 @@ public class Review {
     @Column(name="star_rating")
     private double starRating;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "account_id",nullable = false, insertable = true, updatable = true)
     private Account account;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "forum_id",nullable = false, insertable = true, updatable = true)
     private Forum forum;

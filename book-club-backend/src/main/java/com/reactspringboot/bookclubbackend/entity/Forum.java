@@ -1,5 +1,6 @@
 package com.reactspringboot.bookclubbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class Forum {
     @Column(name="description")
     private String description;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "forum", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
