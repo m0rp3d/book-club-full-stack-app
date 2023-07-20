@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Link} from 'react-router-dom';
 import ForumComponent from '../components/ForumComponent';
 import MyPostComponent from '../components/MyPostComponent';
 import ReviewComponent from './ReviewComponent';
+import PostComponent from './PostComponent';
 
 function MainComponent() {
 
@@ -29,7 +30,8 @@ function MainComponent() {
                             <Routes>
                                 <Route path="/" element={<ForumComponent/>}></Route>
                                 <Route path="/my-posts" element={<MyPostComponent/>}></Route>
-                                <Route path="/reviews" element={<ReviewComponent/>}></Route>    
+                                <Route path="/reviews" element={<ReviewComponent/>}></Route>
+                                <Route path="/post" element={<PostComponent/>}></Route>    
                             </Routes> 
                     </div>
                     </Router>

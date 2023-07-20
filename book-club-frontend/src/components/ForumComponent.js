@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Link} from 'react-router-dom';
+import { useNavigate} from "react-router-dom";
 
 function ForumComponent() {
+
+    const navigate = useNavigate();
 
     const [forums, setForums] = useState([]);
 
@@ -15,6 +17,14 @@ function ForumComponent() {
         });
       }, []);
 
+
+    
+    function clickReview(forum) {
+        console.log(forum.id);
+        
+        navigate("/reviews", {state: forum.id})
+    }
+
     return (
         <div>
             <h2>Forum</h2>
@@ -25,18 +35,15 @@ function ForumComponent() {
                         <th>Book Image</th>
                         <th>Description</th>
                     </tr>
-                
-
                 </thead>
 
                 <tbody>
                     {
                         forums.map((forum, index) => (
                             <tr key = {index}>
-                                <td><Link class="text-decoration-none" to={{pathname: '/reviews'}} >{forum.bookName}</Link></td>
-                                <td><Link class="text-decoration-none" to={{pathname: '/reviews'}} >{forum.bookImage}</Link></td>
-                                <td><Link class="text-decoration-none" to={{pathname: '/reviews'}} >{forum.description}</Link></td>
-
+                                <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
+                                <td>{forum.bookImage}</td>
+                                <td>{forum.description}</td>
                             </tr>
                         ))
                     }
@@ -46,6 +53,8 @@ function ForumComponent() {
         </div>
     
     )
+
+    
 
 }
 

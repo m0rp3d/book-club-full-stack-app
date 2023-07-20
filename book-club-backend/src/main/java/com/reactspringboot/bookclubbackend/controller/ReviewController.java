@@ -3,11 +3,11 @@ package com.reactspringboot.bookclubbackend.controller;
 import com.reactspringboot.bookclubbackend.dao.ReviewRepository;
 import com.reactspringboot.bookclubbackend.entity.Review;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/")
 public class ReviewController {
@@ -19,5 +19,10 @@ public class ReviewController {
     @PostMapping("/review-add")
     public Review createReview(@RequestBody Review review) {
         return reviewRepository.save(review);
+    }
+
+    @GetMapping("/forum-reviews/{forumId}")
+    public List<Review> getReviewsByForumId(@RequestBody @PathVariable Long forumId) {
+        return reviewRepository.getReviewsUsingForumId(forumId);
     }
 }
