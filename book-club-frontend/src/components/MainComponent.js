@@ -3,6 +3,7 @@ import ForumComponent from '../components/ForumComponent';
 import MyPostComponent from '../components/MyPostComponent';
 import ReviewComponent from './ReviewComponent';
 import PostComponent from './PostComponent';
+import SuccessComponent from './SuccessComponent';
 
 function MainComponent() {
 
@@ -31,7 +32,8 @@ function MainComponent() {
                                 <Route path="/" element={<ForumComponent/>}></Route>
                                 <Route path="/my-posts" element={<MyPostComponent/>}></Route>
                                 <Route path="/reviews" element={<ReviewComponent/>}></Route>
-                                <Route path="/post" element={<PostComponent/>}></Route>    
+                                <Route path="/post" element={<PostComponent/>}></Route>
+                                <Route path="/success" element={<SuccessComponent/>}></Route>   
                             </Routes> 
                     </div>
                     </Router>

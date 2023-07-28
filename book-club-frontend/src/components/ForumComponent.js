@@ -42,8 +42,8 @@ function ForumComponent() {
                         forums.map((forum, index) => (
                             <tr key = {index}>
                                 <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
-                                <td>{forum.bookImage}</td>
-                                <td>{forum.description}</td>
+                                <td onClick={() => clickReview(forum)}>{forum.bookImage}</td>
+                                <td onClick={() => clickReview(forum)}>{forum.description}</td>
                             </tr>
                         ))
                     }

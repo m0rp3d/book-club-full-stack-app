@@ -1,6 +1,8 @@
 package com.reactspringboot.bookclubbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -24,7 +26,7 @@ public class Forum {
     @Column(name="description")
     private String description;
 
-    @JsonManagedReference
+
     @OneToMany(mappedBy = "forum", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
@@ -66,6 +68,8 @@ public class Forum {
         this.description = description;
     }
 
+    //@JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public List<Review> getReviews() {
         return reviews;
     }

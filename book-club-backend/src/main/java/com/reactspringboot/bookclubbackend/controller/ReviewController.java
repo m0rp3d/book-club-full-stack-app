@@ -15,7 +15,9 @@ public class ReviewController {
     @Autowired
     private ReviewRepository reviewRepository;
 
+
     // create review rest api
+    //@CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/review-add")
     public Review createReview(@RequestBody Review review) {
         return reviewRepository.save(review);
