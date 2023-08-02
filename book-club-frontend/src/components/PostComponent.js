@@ -1,17 +1,20 @@
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import moment from 'moment';
 
 function PostComponent() {
     const navigate = useNavigate();
+    const location = useLocation();
+    const id = location.state;
+    const message = "Review posted successfully";
+
     const [review, setReview] = useState({datePosted: "2023-07-26", comment: "", 
                                           starRating: 5.0,
                                           account: {
                                             id: 1
                                           },
                                           forum: {
-                                            id: 1
+                                            id: id
                                           }});
     
     const postURL = "http://localhost:8080/api/review-add";
@@ -23,28 +26,17 @@ function PostComponent() {
     function submit(event) {
         event.preventDefault();
 
-        //let dates= new Date()
-        //let month = dates.getUTCMonth() + 1
-        //let day = dates.getUTCDate()
-        //let year = dates.getUTCFullYear()
-        //let currentDate = year + "-" + month + "-" + day
+        let dates= new Date()
+        let month = dates.getUTCMonth() + 1
+        let day = dates.getUTCDate()
+        let year = dates.getUTCFullYear()
+        let currentDate = year + "-" + month + "-" + day
 
-        //let tempDate = new Date();
-        //tempDate = moment().format("MM/DD/YYYY");
+        setReview({...review, datePosted: currentDate});
 
-        //review.datePosted = currentDate;
-        //review.datePosted = tempDate;
-        //console.log(review.datePosted);  
         axios.post(postURL, review);
-        navigate("/success");
-          
+        navigate("/success", {state: message}); 
     }
-
-    /*
-        axios.post(postURL, review).then(res => {
-            console.log(res.data)
-        })
-    */
 
     useEffect(() => {
         console.log(review.comment)
@@ -54,10 +46,11 @@ function PostComponent() {
         <div>
             <div className="container">
                 <h2>Post Review</h2>
+                <div>Id is {review.forum.id}</div>
                 <form onSubmit={(event) => submit(event)}>
                     <div className="form-group">
                         <label>Comment</label>
-                        <input placeholder="Commet here" name="comment" className="form=control"
+                        <input placeholder="Comment here" name="comment" className="form=control"
                             value={review.comment} onChange={changeHandler}/>
                     </div>
                     <button>Submit</button>

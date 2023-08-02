@@ -4,13 +4,28 @@ import MyPostComponent from '../components/MyPostComponent';
 import ReviewComponent from './ReviewComponent';
 import PostComponent from './PostComponent';
 import SuccessComponent from './SuccessComponent';
+import AuthContext from '../context/login-context';
+import SignUpComponent from './SignUpComponent';
+import LoginComponent from './LoginComponent';
+import React, {useState} from 'react';
 
 function MainComponent() {
 
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
     return <div>
-                <div className="container">
+            <AuthContext.Provider 
+                value={{
+                    isLoggedIn: isLoggedIn
+                }}>
+                
+                <div className="container-fluid">
                 <Router>
+                    <div className="container-fluid">
+                        <Link class="text-decoration-none" to={{pathname: '/sign-up'}} >
+                        Login
+                        </Link>
+                    </div>
                     <div className="row">
                         <div className="col-3 bg-primary">
                             <Link class="text-decoration-none" to={{pathname: '/'}}>
@@ -33,12 +48,15 @@ function MainComponent() {
                                 <Route path="/my-posts" element={<MyPostComponent/>}></Route>
                                 <Route path="/reviews" element={<ReviewComponent/>}></Route>
                                 <Route path="/post" element={<PostComponent/>}></Route>
-                                <Route path="/success" element={<SuccessComponent/>}></Route>   
+                                <Route path="/success" element={<SuccessComponent/>}></Route>
+                                <Route path="/sign-up" element={<SignUpComponent/>}></Route>
+                                <Route path="/login" element={<LoginComponent/>}></Route>      
                             </Routes> 
                     </div>
                     </Router>
                 </div>
-           </div>
+            </AuthContext.Provider>
+        </div>
 }
 
 export default MainComponent;
