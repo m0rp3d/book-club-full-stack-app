@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import validation from "./validation";
 
 function SignUpComponent() {
     const navigate = useNavigate();
@@ -20,14 +21,44 @@ function SignUpComponent() {
         setAccount({...account, [event.target.name]: event.target.value});
     }
 
+    /*
     useEffect(() => {
         console.log("account: " + account.accountName + "\n" +
                     "password: " + account.password + "\n" +
                     "email: " + account.email + "\n" +
                     "dateJoined: " + account.dateJoined)
     }, [account]);
+    */
+    
 
+    async function setDate() {
+        let dates= new Date()
+        let month = dates.getUTCMonth() + 1
+        let day = dates.getUTCDate()
+        let year = dates.getUTCFullYear()
+        let currentDate = year + "-" + month + "-" + day
 
+        await setAccount({...account, dateJoined: currentDate});
+        console.log("date joined: " + account.dateJoined);
+    }
+
+    async function checkAccountExist() {
+        let doesExistAccount;
+        if(account.accountName !== "" && account.email !== "") {
+            
+            doesExistAccount = await axios.get(checkAccountExistsURL, account).then(response => response.data);
+        }
+        return doesExistAccount;
+        
+    }
+
+    function postAccount(doesExist) {
+
+        if(doesExist === false) {
+            axios.post(postURL, account);
+            navigate("/success", {state: message}); 
+        }
+    }
 
     function clickPost() {
         navigate("/login")
@@ -36,67 +67,15 @@ function SignUpComponent() {
     function submit(event) {
         event.preventDefault();
 
-        let dates= new Date()
-        let month = dates.getUTCMonth() + 1
-        let day = dates.getUTCDate()
-        let year = dates.getUTCFullYear()
-        let currentDate = year + "-" + month + "-" + day
-
-
-
-        setAccount({...account, dateJoined: currentDate});
-        console.log("date joined: " + account.dateJoined);
-        
-        // response.data used to get value from promise
-        // only call axios.get if http url can be filled
-        
-        if(account.accountName !== "" && account.email !== "") {
+        async function submitFunction() {
+            await setDate();
+            const doesExist = await checkAccountExist();
+            console.log("doesExist after set: " + doesExist);
+            await postAccount(doesExist);
             
-            axios.get(checkAccountExistsURL, account).then(response => {
-            
-                console.log("does account exist: " + response.data);
-                
-            });
         }
-        
-
-        /*
-        if(doesExist === false) {
-            console.log("works");
-        }
-        */
-
-        /*
-        if(response.data === false) {
-            console.log("account doesn't exist");
-
-            axios.post(postURL, account).then(navigate("/success", {state: message}));
-
-            //axios.post(postURL, account);
-            
-        } else {
-            
-            console.log("account does exist")
-        }
-
-        */
-
-
-
-        
-        /*
-        async function doesAccountExist() {
-            let doesExist = await axios.get(checkAccountExistsURL, account);
-            finalExist = doesExist;
-        }
-        */
-        //console.log("does account exists: " + doesExist);
-
-        
-
-        axios.post(postURL, account);
-        navigate("/success", {state: message}); 
-             
+        submitFunction();
+        setErrors(validation(account));        
     }
 
     return (
@@ -108,16 +87,19 @@ function SignUpComponent() {
                     <input placeholder="Enter account name" name="accountName" className="form=control"
                     value={account.accountName} onChange={changeHandler}/>
                 </div>
+                {errors.accountName && <p className="error">{errors.accountName}</p>}
                 <div className="form-group">
                     <label>Password</label>
                     <input placeholder="Enter password" name="password" className="form=control"
                     value={account.password} onChange={changeHandler}/>
                 </div>
+                {errors.password && <p className="error">{errors.password}</p>}
                 <div className="form-group">
                     <label>Email</label>
                     <input placeholder="Enter email" name="email" className="form=control"
                     value={account.email} onChange={changeHandler}/>
                 </div>
+                {errors.email && <p className="error">{errors.email}</p>}
                 <button>Submit</button>
             </form>
             <div onClick={() => clickPost()}>Already have an account? Log in</div>

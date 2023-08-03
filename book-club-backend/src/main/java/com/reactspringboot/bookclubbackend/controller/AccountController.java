@@ -22,13 +22,7 @@ public class AccountController {
         return accountRepository.save(account);
     }
 
-    /*
-    @GetMapping("check-account/{account_name}/{email}")
-    public List<Account> checkIfAccountExists(@RequestBody @PathVariable String account_name, @RequestBody @PathVariable String email) {
-        return accountRepository.getAccountsUsingAccountNameAndEmail(account_name, email);
-    }
 
-     */
 
     // check if account with account_name and email exists
     @CrossOrigin(origins = "http://localhost:3000")
@@ -41,4 +35,41 @@ public class AccountController {
         }
         return true;
     }
+
+    public boolean checkLoginCredentials() {
+
+        return true;
+    }
+
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("check-login/{account_name}/{password}")
+    public boolean checkIfLoginAccountExist(@RequestBody @PathVariable String account_name, @RequestBody @PathVariable String password) {
+        List<Account> accounts = accountRepository.getAccountsUsingAccountNameAndPassword(account_name, password);
+
+        if(accounts.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /*
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("check-login")
+    public boolean checkIfLoginAccountExist(@RequestBody Account account) {
+        List<Account> accounts = accountRepository.getAccountsUsingAccountNameAndPassword(account.getAccountName(), account.getPassword());
+
+        if(accounts.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+     */
+
+
+
+
+
 }

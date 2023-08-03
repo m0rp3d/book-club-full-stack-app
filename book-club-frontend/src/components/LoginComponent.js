@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
 import AuthContext from "../context/login-context";
 import validation from "./validation";
+import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function LoginComponent() {
 
@@ -9,13 +11,51 @@ function LoginComponent() {
     
     const [errors, setErrors] = useState({});
 
+    const [loginCredentials, setLoginCredentials] = useState("");
+
+    const message = "Logged in successfully";
+    
+    const navigate = useNavigate();
+
+    const checkLoginExist = `http://localhost:8080/api/check-login/${account.accountName}/${account.password}`;
+
     function changeHandler (event) {    
         setAccount({...account, [event.target.name]: event.target.value});
     }
 
+    async function checkLoginFunction() {
+        let loginExist;
+
+        if(account.accountName !== "" && account.password !== "") {
+            loginExist = await axios.get(checkLoginExist, account).then(response => response.data);
+            console.log(loginExist);
+        }
+        
+        return loginExist;
+    }
+
+
     function submit(event) {
         event.preventDefault();
-        setErrors(validation(account));     
+        setLoginCredentials("");
+        async function helperFunc() {
+        
+        const doesLoginExist = await checkLoginFunction();
+
+        console.log(doesLoginExist);
+
+        if(doesLoginExist === true) {
+            // where we will add code for logging in account
+            navigate("/success", {state: message});
+        } else {
+            setLoginCredentials("Wrong login credentials");
+        }
+
+        }
+        helperFunc();
+        //navigate("/success", {state: message}); 
+        setErrors(validation(account));
+
     }
 
     return (
@@ -35,6 +75,7 @@ function LoginComponent() {
                 </div>
                 {errors.password && <p className="error">{errors.password}</p>}
                 <button>Submit</button>
+                <p>{loginCredentials}</p>
             </form>    
         </div>
     )    
