@@ -4,36 +4,55 @@ import MyPostComponent from '../components/MyPostComponent';
 import ReviewComponent from './ReviewComponent';
 import PostComponent from './PostComponent';
 import SuccessComponent from './SuccessComponent';
-import AuthContext from '../context/login-context';
 import SignUpComponent from './SignUpComponent';
 import LoginComponent from './LoginComponent';
-import React, {useState} from 'react';
+import RoleContext from '../context/role-context';
+import React, {useState, useContext} from 'react';
+import AuthContext from "../context/login-context";
+
 
 function MainComponent() {
+    const {accountId, setAccountId} = useContext(AuthContext);
+    const {role, setRole} = useContext(RoleContext);
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    /*
+    function Logout() {
+
+        if(accountId !== 0) {
+            return <Link className="text-decoration-none" to={{pathname: '/'}} >
+                    Logout
+                   </Link>
+        }
+    }
+    */
+
     
     return <div>
-            <AuthContext.Provider 
-                value={{
-                    isLoggedIn: isLoggedIn
-                }}>
+            
                 
                 <div className="container-fluid">
                 <Router>
                     <div className="container-fluid">
-                        <Link class="text-decoration-none" to={{pathname: '/sign-up'}} >
-                        Login
-                        </Link>
+                        <div className="border float-left border-danger w-25">
+                            <Link className="text-decoration-none" to={{pathname: '/sign-up'}} >
+                            Sign Up
+                            </Link>
+                        </div>
+                        <div className="border float-right border-danger w-25">
+                            
+                        </div>
+                        
+                       
                     </div>
                     <div className="row">
                         <div className="col-3 bg-primary">
-                            <Link class="text-decoration-none" to={{pathname: '/'}}>
+                            <Link className="text-decoration-none" to={{pathname: '/'}}>
                                 Forum
                             </Link>
                         </div>
                         <div className="col-3 bg-secondary">
-                            <Link class="text-decoration-none" to={{pathname: '/my-posts'}} >
+                            <Link className="text-decoration-none" to={{pathname: '/my-posts'}} >
                             My Post
                             </Link>
                         </div>
@@ -55,7 +74,7 @@ function MainComponent() {
                     </div>
                     </Router>
                 </div>
-            </AuthContext.Provider>
+            
         </div>
 }
 

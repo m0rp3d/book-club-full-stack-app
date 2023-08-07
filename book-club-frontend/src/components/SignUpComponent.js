@@ -10,7 +10,6 @@ function SignUpComponent() {
     const [account, setAccount] = useState({accountName: "", password: "", email: "",
                                             profileImage: "", role: "member", dateJoined: ""});
 
-    //const [doesExist, setDoesExist] = useState();
     
     const [errors, setErrors] = useState({});
     

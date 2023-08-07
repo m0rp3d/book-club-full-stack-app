@@ -53,6 +53,26 @@ public class AccountController {
         return false;
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("get-id/{account_name}/{password}")
+    public long getIdUsingAccountNameAndPassword(@RequestBody @PathVariable String account_name, @RequestBody @PathVariable String password) {
+        long tempId = 0;
+        tempId = accountRepository.getIdUsingAccountNameAndPassword(account_name, password);
+
+        return tempId;
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("get-role/{account_name}/{password}")
+    public String getRoleUsingAccountNameAndPassword(@RequestBody @PathVariable String account_name, @RequestBody @PathVariable String password) {
+        String theRole = "";
+        theRole = accountRepository.getRoleUsingAccountNameAndPassword(account_name, password);
+
+        return theRole;
+    }
+
+
+
 
     /*
     @CrossOrigin(origins = "http://localhost:3000")

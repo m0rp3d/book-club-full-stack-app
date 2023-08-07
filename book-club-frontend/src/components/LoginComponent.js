@@ -3,8 +3,11 @@ import AuthContext from "../context/login-context";
 import validation from "./validation";
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import RoleContext from '../context/role-context';
 
 function LoginComponent() {
+    const {accountId, setAccountId} = useContext(AuthContext);
+    const {role, setRole} = useContext(RoleContext);
 
     const [account, setAccount] = useState({accountName: "", password: "", email: "",
                                             profileImage: "", role: "member", dateJoined: ""});
@@ -18,6 +21,16 @@ function LoginComponent() {
     const navigate = useNavigate();
 
     const checkLoginExist = `http://localhost:8080/api/check-login/${account.accountName}/${account.password}`;
+    const getIdAccount = `http://localhost:8080/api/get-id/${account.accountName}/${account.password}`;
+    const getRoleAccount = `http://localhost:8080/api/get-role/${account.accountName}/${account.password}`;
+
+    useEffect(() => {
+        console.log("accountId is now set to " + accountId)
+    }, [accountId]);
+
+    useEffect(() => {
+        console.log("role is now set to " + role)
+    }, [role]);
 
     function changeHandler (event) {    
         setAccount({...account, [event.target.name]: event.target.value});
@@ -34,18 +47,42 @@ function LoginComponent() {
         return loginExist;
     }
 
+    async function getAccountIDUsingAccountNameAndPassword() {
+
+        let tempId;
+        tempId = await axios.get(getIdAccount, account).then(response => response.data);
+
+        return tempId;
+
+    }
+
+    async function getRoleUsingAccountNameAndPassword() {
+        let tempRole;
+        tempRole = await axios.get(getRoleAccount, account).then(response => response.data);
+
+        return tempRole;
+
+    }
+
 
     function submit(event) {
         event.preventDefault();
+
         setLoginCredentials("");
         async function helperFunc() {
         
         const doesLoginExist = await checkLoginFunction();
 
-        console.log(doesLoginExist);
 
         if(doesLoginExist === true) {
-            // where we will add code for logging in account
+
+            let confirmId = await getAccountIDUsingAccountNameAndPassword();
+            console.log("confirm id is " + confirmId);
+            
+            let confirmRole = await getRoleUsingAccountNameAndPassword();
+
+            await setAccountId(confirmId);
+            await setRole(confirmRole);
             navigate("/success", {state: message});
         } else {
             setLoginCredentials("Wrong login credentials");
@@ -53,7 +90,6 @@ function LoginComponent() {
 
         }
         helperFunc();
-        //navigate("/success", {state: message}); 
         setErrors(validation(account));
 
     }
