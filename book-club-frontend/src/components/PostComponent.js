@@ -1,17 +1,22 @@
 import {useLocation, useNavigate} from "react-router-dom";
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
+import RoleContext from '../context/role-context';
+import AuthContext from "../context/login-context";
+
 
 function PostComponent() {
     const navigate = useNavigate();
     const location = useLocation();
     const id = location.state;
     const message = "Review posted successfully";
+    const {accountId, setAccountId} = useContext(AuthContext);
+    const {role, setRole} = useContext(RoleContext);
 
     const [review, setReview] = useState({datePosted: "2023-07-26", comment: "", 
                                           starRating: 5.0,
                                           account: {
-                                            id: 1
+                                            id: accountId
                                           },
                                           forum: {
                                             id: id
@@ -46,7 +51,7 @@ function PostComponent() {
         <div>
             <div className="container">
                 <h2>Post Review</h2>
-                <div>Id is {review.forum.id}</div>
+                <div>Id is {review.account.id}</div>
                 <form onSubmit={(event) => submit(event)}>
                     <div className="form-group">
                         <label>Comment</label>

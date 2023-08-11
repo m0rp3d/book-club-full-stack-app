@@ -14,4 +14,9 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     // get id for the food item using name
     @Query(value = "SELECT * FROM Review r where r.forum_id = :forum_id", nativeQuery = true)
     public List<Review> getReviewsUsingForumId(@Param("forum_id") Long forum_id);
+
+    @Query(value = "SELECT * FROM Review r where r.account_id = :account_id", nativeQuery = true)
+    public List<Review> getReviewsUsingAccountId(@Param("account_id") Long account_id);
+
+
 }

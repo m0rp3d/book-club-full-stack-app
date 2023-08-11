@@ -68,6 +68,8 @@ function LoginComponent() {
     function submit(event) {
         event.preventDefault();
 
+        //console.log("before value assigned, accountId is " + accountId);
+
         setLoginCredentials("");
         async function helperFunc() {
         

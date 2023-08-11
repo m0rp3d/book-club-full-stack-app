@@ -6,14 +6,19 @@ import PostComponent from './PostComponent';
 import SuccessComponent from './SuccessComponent';
 import SignUpComponent from './SignUpComponent';
 import LoginComponent from './LoginComponent';
+import LoggedOutComponent from './LoggedOutComponent';
 import RoleContext from '../context/role-context';
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import AuthContext from "../context/login-context";
+import UpdateReviewComponent from './UpdateReviewComponent';
+
 
 
 function MainComponent() {
     const {accountId, setAccountId} = useContext(AuthContext);
     const {role, setRole} = useContext(RoleContext);
+    
+    //const navigate = useNavigate();
 
 
     /*
@@ -27,6 +32,21 @@ function MainComponent() {
     }
     */
 
+    function LoginOrLogout() {
+
+        if(accountId === 0) {
+            return <div className="border float-left border-danger w-25">
+                            <Link className="text-decoration-none" to={{pathname: '/sign-up'}} >
+                            Sign Up
+                            </Link>
+                    </div>
+        } else if (accountId > 0) {
+            return <Link className="text-decoration-none" to={{pathname: '/logged-out'}} >
+                    Logout
+                </Link>
+        }
+    }
+
     
     return <div>
             
@@ -34,16 +54,10 @@ function MainComponent() {
                 <div className="container-fluid">
                 <Router>
                     <div className="container-fluid">
-                        <div className="border float-left border-danger w-25">
-                            <Link className="text-decoration-none" to={{pathname: '/sign-up'}} >
-                            Sign Up
-                            </Link>
-                        </div>
-                        <div className="border float-right border-danger w-25">
-                            
-                        </div>
-                        
-                       
+                    <div className="border float-left border-danger w-25">
+                            <LoginOrLogout />
+                            accountId is now {accountId}
+                    </div>
                     </div>
                     <div className="row">
                         <div className="col-3 bg-primary">
@@ -69,7 +83,9 @@ function MainComponent() {
                                 <Route path="/post" element={<PostComponent/>}></Route>
                                 <Route path="/success" element={<SuccessComponent/>}></Route>
                                 <Route path="/sign-up" element={<SignUpComponent/>}></Route>
-                                <Route path="/login" element={<LoginComponent/>}></Route>      
+                                <Route path="/login" element={<LoginComponent/>}></Route> 
+                                <Route path="/logged-out" element={<LoggedOutComponent/>}></Route>
+                                <Route path="/update-review" element={<UpdateReviewComponent/>}></Route>    
                             </Routes> 
                     </div>
                     </Router>

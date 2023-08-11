@@ -1,11 +1,10 @@
 import { useLocation, useNavigate} from "react-router-dom";
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
+import RoleContext from '../context/role-context';
 import AuthContext from "../context/login-context";
 
 function ReviewComponent() {
-
-    const ctx = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -15,10 +14,23 @@ function ReviewComponent() {
 
     const id = location.state;
 
+    const {accountId, setAccountId} = useContext(AuthContext);
+    const {role, setRole} = useContext(RoleContext);
+
     const baseurl = `http://localhost:8080/api/forum-reviews/${id}`;
 
     function clickPost(id) {
         navigate("/post", {state: id})
+    }
+
+    function IfCanPost() {
+        if(accountId === 0) {
+            return <div >
+                   Login to post review   
+                   </div>
+        } else if (accountId > 0) {
+            return <div onClick={() => clickPost(id)}>Post a review</div>
+        }
     }
     
     useEffect(() => {
@@ -56,7 +68,8 @@ function ReviewComponent() {
                             }
                         </tbody>
                     </table>
-                    <div onClick={() => clickPost(id)}>Post a review</div>
+                    <IfCanPost/>
+                    
             </div>
         )    
 }

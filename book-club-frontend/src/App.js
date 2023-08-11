@@ -7,8 +7,8 @@ import RoleContext from './context/role-context';
 
 
 function App() {
-    const [accountId, setAccountId] = useState();
-    const [role, setRole] = useState();
+    const [accountId, setAccountId] = useState(0);
+    const [role, setRole] = useState("");
 
   return (
     <AuthContext.Provider 
