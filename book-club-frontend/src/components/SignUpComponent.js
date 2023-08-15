@@ -12,8 +12,7 @@ function SignUpComponent() {
 
     
     const [errors, setErrors] = useState({});
-    const [hasErrors, setHasErrors] = useState();
-
+    const [accountExist, setAccountExist] = useState(false);
     
     const postURL = "http://localhost:8080/api/account-add";
     const checkAccountExistsURL = `http://localhost:8080/api/check-account/${account.accountName}/${account.email}`;
@@ -30,39 +29,9 @@ function SignUpComponent() {
                     "dateJoined: " + account.dateJoined)
     }, [account]);
     */
-
-    
-    useEffect(() => {
-        console.log("error length is " + Object.keys(errors).length );
-        async function settingTheErrors() {
-            if(Object.keys(errors).length === 0) {
-                await setHasErrors(false);
-            } else {
-                await setHasErrors(true);
-            }
-        }
-        settingTheErrors();
-        
-    }, [errors]);
-
-    useEffect(() => {
-        console.log("error length is " + Object.keys(errors).length );
-        
-        settingErrors();
-        
-        
-    }, [errors]);
-
-    async function settingErrors() {
-        if(Object.keys(errors).length === 0) {
-            await setHasErrors(false);
-        } else {
-            await setHasErrors(true);
-        }
-    }
-    
     
 
+    /*
     async function setDate() {
         let dates= new Date()
         let month = dates.getUTCMonth() + 1
@@ -73,6 +42,7 @@ function SignUpComponent() {
         await setAccount({...account, dateJoined: currentDate});
         console.log("date joined: " + account.dateJoined);
     }
+    */
 
     async function checkAccountExist() {
         let doesExistAccount;
@@ -86,50 +56,80 @@ function SignUpComponent() {
 
     
 
-    function postAccount(doesExist) {
-        console.log("doesExist after set: " + doesExist + " and doesErrors after set: " + hasErrors);
+    async function postAccount(doesExist, doesErrors) {
+        
+        
+                
+            if(doesExist === false && doesErrors === true) {
+            
+                console.log("account: " + account.accountName + "\n" +
+                    "password: " + account.password + "\n" +
+                    "email: " + account.email + "\n" +
+                    "dateJoined: " + account.dateJoined)
 
-        if(doesExist === false && hasErrors === false) {
-            //axios.post(postURL, account);
-            navigate("/success", {state: message}); 
+                await axios.post(postURL, account);
+                await navigate("/success", {state: message}); 
+            }
+         
+
+        
+    }
+
+    function IfAccountExist() {
+        if(accountExist === true) {
+            return <div>Account Exists</div>
+        } else{
+            return <div></div>
         }
     }
-   
 
-    async function setErrorsFunc() {
-        await setErrors(validation(account));
-        //console.log("error length is " + Object.keys(errors).length );
+    function errorChecker() {
+        if(!account.accountName) {
+            return false;
+        }else if(!account.password) {
+            return false;
+        } else if (account.password.length < 8) {
+            return false;
+        }else if(!account.email) {
+            return false;
+        } else if(!/\S+@\S+\.\S+/.test(account.email)) {
+            return false;
+        }
+        return true;
+
     }
 
     function clickPost() {
         navigate("/login")
     }
-
+    
     function submit(event) {
         event.preventDefault();
-        console.log("doesErrors before set: " + hasErrors);
-        //setErrors(validation(account));
-        setErrorsFunc();
+
+        
 
         async function submitFunction() {
-            
-
-            //const doesErrors = await checkForErrors();
-
-            await setDate();
-
+            const doesErrors = await errorChecker();
+    
+            //await setDate();
+    
             const doesExist = await checkAccountExist();
-            //setErrorsFunc();
+            
+    
+            console.log("doesExist after set: " + doesExist + " and doesErrors after set: " + doesErrors);
 
-            //console.log("doesExist after set: " + doesExist + " and doesErrors after set: " + hasErrors);
+            if(doesExist === true) {
+                setAccountExist(true);
+            } else{
+                setAccountExist(false);
+            }
             
-            await postAccount(doesExist);
-            
-            
-            
+            await postAccount(doesExist, doesErrors);
+                
         }
-
-        submitFunction();  
+        submitFunction();
+        setErrors(validation(account));
+     
                
     }
 
@@ -157,6 +157,7 @@ function SignUpComponent() {
                 {errors.email && <p className="error">{errors.email}</p>}
                 <button >Submit</button>
             </form>
+            <IfAccountExist/>
             <div onClick={() => clickPost()}>Already have an account? Log in</div>
         </div>
     )    

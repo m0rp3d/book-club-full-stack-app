@@ -71,24 +71,25 @@ function LoginComponent() {
         //console.log("before value assigned, accountId is " + accountId);
 
         setLoginCredentials("");
+        
         async function helperFunc() {
         
-        const doesLoginExist = await checkLoginFunction();
+            const doesLoginExist = await checkLoginFunction();
 
 
-        if(doesLoginExist === true) {
+            if(doesLoginExist === true) {
 
-            let confirmId = await getAccountIDUsingAccountNameAndPassword();
-            console.log("confirm id is " + confirmId);
-            
-            let confirmRole = await getRoleUsingAccountNameAndPassword();
+                let confirmId = await getAccountIDUsingAccountNameAndPassword();
+                console.log("confirm id is " + confirmId);
+                
+                let confirmRole = await getRoleUsingAccountNameAndPassword();
 
-            await setAccountId(confirmId);
-            await setRole(confirmRole);
-            navigate("/success", {state: message});
-        } else {
-            setLoginCredentials("Wrong login credentials");
-        }
+                await setAccountId(confirmId);
+                await setRole(confirmRole);
+                navigate("/success", {state: message});
+            } else {
+                setLoginCredentials("Wrong login credentials");
+            }
 
         }
         helperFunc();
