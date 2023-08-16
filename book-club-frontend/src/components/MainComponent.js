@@ -11,6 +11,8 @@ import RoleContext from '../context/role-context';
 import React, {useContext} from 'react';
 import AuthContext from "../context/login-context";
 import UpdateReviewComponent from './UpdateReviewComponent';
+import ForumPostComponent from './ForumPostComponent';
+import UpdateForumComponent from './UpdateForumComponent';
 
 
 
@@ -85,7 +87,9 @@ function MainComponent() {
                                 <Route path="/sign-up" element={<SignUpComponent/>}></Route>
                                 <Route path="/login" element={<LoginComponent/>}></Route> 
                                 <Route path="/logged-out" element={<LoggedOutComponent/>}></Route>
-                                <Route path="/update-review" element={<UpdateReviewComponent/>}></Route>    
+                                <Route path="/update-review" element={<UpdateReviewComponent/>}></Route>  
+                                <Route path="forum-post" element={<ForumPostComponent/>}></Route>  
+                                <Route path="/update-forum" element={<UpdateForumComponent/>}></Route> 
                             </Routes> 
                     </div>
                     </Router>

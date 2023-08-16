@@ -1,10 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import { useNavigate} from "react-router-dom";
+import RoleContext from '../context/role-context';
+import AuthContext from "../context/login-context";
 
 function ForumComponent() {
 
     const navigate = useNavigate();
+
+    const {accountId, setAccountId} = useContext(AuthContext);
+    const {role, setRole} = useContext(RoleContext);
+    const message = "Forum deleted successfully."
 
     const [forums, setForums] = useState([]);
 
@@ -17,6 +23,18 @@ function ForumComponent() {
         });
       }, []);
 
+    function clickPost() {
+        navigate("/forum-post")
+    }
+
+    function IfCanPost() {
+        if(role === "admin") {
+            return <div onClick={() => clickPost()}>Post a forum</div>
+        } 
+    }
+
+    
+
 
     
     function clickReview(forum) {
@@ -24,6 +42,16 @@ function ForumComponent() {
         
         navigate("/reviews", {state: forum.id})
     }
+
+    async function deleteForumById(forumId) {
+        await axios.delete(`http://localhost:8080/api/forum/${forumId}`);
+        navigate('/success', {state: message})
+    }
+
+    function clickUpdate(forum) {
+        navigate("/update-forum", {state: forum.id})
+    }
+
 
     return (
         <div>
@@ -34,6 +62,7 @@ function ForumComponent() {
                         <th>Book Name</th>
                         <th>Book Image</th>
                         <th>Description</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -44,11 +73,20 @@ function ForumComponent() {
                                 <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
                                 <td onClick={() => clickReview(forum)}>{forum.bookImage}</td>
                                 <td onClick={() => clickReview(forum)}>{forum.description}</td>
+                                <td>
+                                    {role === "admin" && ( 
+                                                            <div>
+                                                                <button onClick={() => clickUpdate(forum)}>Edit</button>
+                                                                <button onClick={() => deleteForumById(forum.id)}>Delete</button>
+                                                            </div>    
+                                                        )}
+                                </td>
                             </tr>
                         ))
                     }
                 </tbody>
             </table>
+            <IfCanPost/>
             
         </div>
     
