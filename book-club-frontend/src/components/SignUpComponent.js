@@ -86,6 +86,8 @@ function SignUpComponent() {
     function errorChecker() {
         if(!account.accountName) {
             return false;
+        }else if (account.accountName.length < 3) {
+            return false;
         }else if(!account.password) {
             return false;
         } else if (account.password.length < 8) {

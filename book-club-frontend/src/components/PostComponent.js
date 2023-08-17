@@ -3,6 +3,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RoleContext from '../context/role-context';
 import AuthContext from "../context/login-context";
+import commentValidation from "./comment-validation";
 
 
 function PostComponent() {
@@ -12,6 +13,7 @@ function PostComponent() {
     const message = "Review posted successfully";
     const {accountId, setAccountId} = useContext(AuthContext);
     const {role, setRole} = useContext(RoleContext);
+    const [errors, setErrors] = useState({});
 
     const [review, setReview] = useState({datePosted: "2023-07-26", comment: "", 
                                           starRating: 5.0,
@@ -28,6 +30,21 @@ function PostComponent() {
         setReview({...review, comment: event.target.value});
     }
 
+    function errorChecker() {
+        if(!review.comment) {
+            return false;
+        } 
+        return true;
+    }
+
+    async function postReview(doesErrors) {
+          
+        if(doesErrors === true) {
+            axios.post(postURL, review);
+            navigate("/success", {state: message}); 
+        }
+    }   
+
     function submit(event) {
         event.preventDefault();
 
@@ -38,9 +55,16 @@ function PostComponent() {
         let currentDate = year + "-" + month + "-" + day
 
         setReview({...review, datePosted: currentDate});
+        
+        async function submitReview() {
+            
+            const doesErrors = await errorChecker();
 
-        axios.post(postURL, review);
-        navigate("/success", {state: message}); 
+            postReview(doesErrors);
+        }
+        submitReview();
+        setErrors(commentValidation(review));
+        
     }
 
     useEffect(() => {
@@ -58,6 +82,7 @@ function PostComponent() {
                         <input placeholder="Comment here" name="comment" className="form=control"
                             value={review.comment} onChange={changeHandler}/>
                     </div>
+                    {errors.comment && <p className="error">{errors.comment}</p>}
                     <button>Submit</button>
                 </form>
             </div>
