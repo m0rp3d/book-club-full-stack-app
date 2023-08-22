@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate} from "react-router-dom";
 import RoleContext from '../context/role-context';
 import AuthContext from "../context/login-context";
+import ReactPaginate from 'react-paginate';
 
 function ForumComponent() {
 
@@ -13,6 +14,35 @@ function ForumComponent() {
     const message = "Forum deleted successfully."
 
     const [forums, setForums] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 10;
+    const pagesVisited = pageNumber * usersPerPage;
+
+    const displayForums = forums
+                            .slice(pagesVisited, pagesVisited + usersPerPage)
+                            .map((forum, index) => {
+                                return (
+                                    <tr key = {index}>
+                                        <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
+                                        <td onClick={() => clickReview(forum)}>{forum.bookImage}</td>
+                                        <td onClick={() => clickReview(forum)}>{forum.description}</td>
+                                        <td>
+                                            {role === "admin" && ( 
+                                                                    <div>
+                                                                        <button onClick={() => clickUpdate(forum)}>Edit</button>
+                                                                        <button onClick={() => deleteForumById(forum.id)}>Delete</button>
+                                                                    </div>    
+                                                                )}
+                                        </td>
+                                    </tr>
+                                );
+                            }); 
+    
+    const pageCount = Math.ceil(forums.length / usersPerPage);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    };
 
     const REST_API_URL = "http://localhost:8080/api/forum";
 
@@ -33,10 +63,7 @@ function ForumComponent() {
         } 
     }
 
-    
 
-
-    
     function clickReview(forum) {
         console.log(forum.id);
         
@@ -67,23 +94,18 @@ function ForumComponent() {
                 </thead>
 
                 <tbody>
-                    {
-                        forums.map((forum, index) => (
-                            <tr key = {index}>
-                                <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
-                                <td onClick={() => clickReview(forum)}>{forum.bookImage}</td>
-                                <td onClick={() => clickReview(forum)}>{forum.description}</td>
-                                <td>
-                                    {role === "admin" && ( 
-                                                            <div>
-                                                                <button onClick={() => clickUpdate(forum)}>Edit</button>
-                                                                <button onClick={() => deleteForumById(forum.id)}>Delete</button>
-                                                            </div>    
-                                                        )}
-                                </td>
-                            </tr>
-                        ))
-                    }
+                    {displayForums}
+                    <ReactPaginate
+                        previousLabel={"Previous"}
+                        nextLabel={"Next"}
+                        pageCount={pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"paginationBttns"}
+                        previousLinkClassName={"previousBttn"}
+                        nextLinkClassName={"nextBttn"}
+                        disabledClassName={"paginationDisabled"}
+                        activeClassName={"paginationActive"}
+                    />
                 </tbody>
             </table>
             <IfCanPost/>

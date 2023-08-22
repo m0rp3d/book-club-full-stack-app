@@ -53,4 +53,5 @@ public class ReviewController {
     public Review getReviewById(@PathVariable Long id) {
         return reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review with id doesn't exist: " + id));
     }
+
 }

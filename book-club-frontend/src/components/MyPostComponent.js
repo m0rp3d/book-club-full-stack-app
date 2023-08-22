@@ -45,7 +45,7 @@ function MyPostComponent() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Review Id</th>
+                                <th>Book Name</th>
                                 <th>Date Posted</th>
                                 <th>Rating</th>
                                 <th>Comment</th>
@@ -57,7 +57,7 @@ function MyPostComponent() {
                             {
                             reviews.map((review, index) => (
                                 <tr key = {index}>
-                                    <td>{review.id}</td>
+                                    <td>{review.forum.bookName}</td>
                                     <td>{review.datePosted}</td>
                                     <td>{review.starRating}</td>
                                     <td>{review.comment}</td>
