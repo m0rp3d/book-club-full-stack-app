@@ -95,6 +95,7 @@ function ForumComponent() {
 
                 <tbody>
                     {displayForums}
+                    <div className="mt-5">
                     <ReactPaginate
                         previousLabel={"Previous"}
                         nextLabel={"Next"}
@@ -106,16 +107,12 @@ function ForumComponent() {
                         disabledClassName={"paginationDisabled"}
                         activeClassName={"paginationActive"}
                     />
+                    </div>
                 </tbody>
             </table>
-            <IfCanPost/>
-            
-        </div>
-    
-    )
-
-    
-
+            <IfCanPost/>   
+        </div>   
+    )   
 }
 
 export default ForumComponent;

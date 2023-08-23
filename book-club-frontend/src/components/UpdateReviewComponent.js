@@ -33,7 +33,7 @@ function UpdateReviewComponent() {
           
         if(doesErrors === true) {
             axios.put(`http://localhost:8080/api/review-update/${id}`, review);
-            navigate("/success", {state: message});  
+            navigate("/review-success", {state: message});  
         }
     } 
 

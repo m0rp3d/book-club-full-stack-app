@@ -3,6 +3,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import RoleContext from '../context/role-context';
 import AuthContext from "../context/login-context";
+import ReactPaginate from 'react-paginate';
 
 function ReviewComponent() {
 
@@ -16,6 +17,28 @@ function ReviewComponent() {
 
     const {accountId, setAccountId} = useContext(AuthContext);
     const {role, setRole} = useContext(RoleContext);
+
+    
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 10;
+    const pagesVisited = pageNumber * usersPerPage;
+    const displayReviews = reviews
+                            .slice(pagesVisited, pagesVisited + usersPerPage)
+                            .map((review, index) => {
+                                return (
+                                <tr key = {index}>
+                                    <td>{review.datePosted}</td>
+                                    
+                                    <td>{review.comment}</td>   
+                                </tr>
+                                );
+                            });
+    const pageCount = Math.ceil(reviews.length / usersPerPage);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    };
 
     const baseurl = `http://localhost:8080/api/forum-reviews/${id}`;
 
@@ -51,25 +74,29 @@ function ReviewComponent() {
                         <thead>
                             <tr>
                                 <th>Date Posted</th>
-                                <th>Rating</th>
+                                
                                 <th>Comment</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            {
-                            reviews.map((review, index) => (
-                                <tr key = {index}>
-                                    <td>{review.datePosted}</td>
-                                    <td>{review.starRating}</td>
-                                    <td>{review.comment}</td>   
-                                </tr>
-                            ))
-                            }
+                            {displayReviews}
+                            <div className="mt-5">
+                            <ReactPaginate
+                            previousLabel={"Previous"}
+                            nextLabel={"Next"}
+                            pageCount={pageCount}
+                            onPageChange={changePage}
+                            containerClassName={"paginationBttns"}
+                            previousLinkClassName={"previousBttn"}
+                            nextLinkClassName={"nextBttn"}
+                            disabledClassName={"paginationDisabled"}
+                            activeClassName={"paginationActive"}
+                            />
+                            </div>
                         </tbody>
                     </table>
-                    <IfCanPost/>
-                    
+                    <IfCanPost/>        
             </div>
         )    
 }

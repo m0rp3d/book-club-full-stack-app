@@ -20,12 +20,10 @@ function App() {
                 value={{
                     role, setRole
                 }}>
-      <div>
-          <div className="d-flex justify-content-center">
-              <div className="border  bg-primary-subtle">
-                  <MainComponent></MainComponent>
-              </div>
-          </div>
+      <div className="w-75 mx-auto">  
+        <div className="border bg-primary-subtle">
+            <MainComponent></MainComponent>
+        </div>     
       </div>
     </RoleContext.Provider>
     </AuthContext.Provider>

@@ -3,6 +3,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import AuthContext from "../context/login-context";
 import axios from 'axios';
 import { useNavigate} from "react-router-dom";
+import ReactPaginate from 'react-paginate';
 
 function MyPostComponent() {
     const navigate = useNavigate();
@@ -10,11 +11,37 @@ function MyPostComponent() {
     const {accountId, setAccountId} = useContext(AuthContext);
     const {role, setRole} = useContext(RoleContext);
     const [reviews, setReviews] = useState([]);
-    const message = "Review deleted successfully."
-
+    const message = "Review deleted successfully.";
     const baseurl = `http://localhost:8080/api/account-reviews/${accountId}`;
+    const [pageNumber, setPageNumber] = useState(0);
+    const usersPerPage = 10;
+    const pagesVisited = pageNumber * usersPerPage;
+    
+    const displayMyPosts = reviews
+                            .slice(pagesVisited, pagesVisited + usersPerPage)
+                            .map((review, index) => {
+                                return (
+                                    <tr key = {index}>
+                                    <td>{review.forum.bookName}</td>
+                                    <td>{review.datePosted}</td>
+                                    <td>{review.starRating}</td>
+                                    <td>{review.comment}</td>
+                                    <td>
+                                        <button onClick={() => clickUpdate(review)}>Edit</button>
+                                        <button onClick={() => deleteReviewById(review.id)}>Delete</button>
+                                    </td>   
+                                </tr>
+                                );
+                                
+                            });
 
     
+
+    const pageCount = Math.ceil(reviews.length / usersPerPage);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -29,7 +56,7 @@ function MyPostComponent() {
 
     async function deleteReviewById(deleteId) {
         await axios.delete(`http://localhost:8080/api/review/${deleteId}`);
-        navigate('/success', {state: message})
+        navigate('/review-success', {state: message})
     }
 
     function clickUpdate(review) {
@@ -54,20 +81,20 @@ function MyPostComponent() {
                         </thead>
 
                         <tbody>
-                            {
-                            reviews.map((review, index) => (
-                                <tr key = {index}>
-                                    <td>{review.forum.bookName}</td>
-                                    <td>{review.datePosted}</td>
-                                    <td>{review.starRating}</td>
-                                    <td>{review.comment}</td>
-                                    <td>
-                                        <button onClick={() => clickUpdate(review)}>Edit</button>
-                                        <button onClick={() => deleteReviewById(review.id)}>Delete</button>
-                                    </td>   
-                                </tr>
-                            ))
-                            }
+                        {displayMyPosts}
+                        <div className="mt-5">
+                        <ReactPaginate
+                            previousLabel={"Previous"}
+                            nextLabel={"Next"}
+                            pageCount={pageCount}
+                            onPageChange={changePage}
+                            containerClassName={"paginationBttns"}
+                            previousLinkClassName={"previousBttn"}
+                            nextLinkClassName={"nextBttn"}
+                            disabledClassName={"paginationDisabled"}
+                            activeClassName={"paginationActive"}
+                        />
+                        </div>
                         </tbody>
                     </table>  
                    </div>
@@ -84,7 +111,6 @@ function MyPostComponent() {
             <h2>MyPost</h2>
             <IfAccountExist/>
         </div>  
-
     )
 }
 

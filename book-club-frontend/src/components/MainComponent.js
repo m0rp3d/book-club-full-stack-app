@@ -13,37 +13,25 @@ import AuthContext from "../context/login-context";
 import UpdateReviewComponent from './UpdateReviewComponent';
 import ForumPostComponent from './ForumPostComponent';
 import UpdateForumComponent from './UpdateForumComponent';
-
+import '../App.css';
+import ReviewSuccessComponent from './ReviewSuccessComponent';
 
 
 function MainComponent() {
     const {accountId, setAccountId} = useContext(AuthContext);
     const {role, setRole} = useContext(RoleContext);
     
-    //const navigate = useNavigate();
-
-
-    /*
-    function Logout() {
-
-        if(accountId !== 0) {
-            return <Link className="text-decoration-none" to={{pathname: '/'}} >
-                    Logout
-                   </Link>
-        }
-    }
-    */
 
     function LoginOrLogout() {
 
         if(accountId === 0) {
-            return <div className="border float-left border-danger w-25">
-                            <Link className="text-decoration-none" to={{pathname: '/sign-up'}} >
+            return <div className="float-left w-25">
+                            <Link className="text-decoration-none" id="hoverOne" to={{pathname: '/sign-up'}} >
                             Sign Up
                             </Link>
                     </div>
         } else if (accountId > 0) {
-            return <Link className="text-decoration-none" to={{pathname: '/logged-out'}} >
+            return <Link className="text-decoration-none" id="hoverOne" to={{pathname: '/logged-out'}} >
                     Logout
                 </Link>
         }
@@ -51,29 +39,28 @@ function MainComponent() {
 
     
     return <div>
-            
-                
                 <div className="container-fluid">
                 <Router>
                     <div className="container-fluid">
-                    <div className="border float-left border-danger w-25">
-                            <LoginOrLogout />
-                            accountId is now {accountId}
-                    </div>
+                        <div className="float-left w-25">
+                                <LoginOrLogout />
+                        </div>
                     </div>
                     <div className="row">
-                        <div className="col-3 bg-primary">
-                            <Link className="text-decoration-none" to={{pathname: '/'}}>
+                        <div className="col-2 bg-primary">
+                            <Link className="text-decoration-none link-light" to={{pathname: '/'}}>
                                 Forum
                             </Link>
                         </div>
-                        <div className="col-3 bg-secondary">
-                            <Link className="text-decoration-none" to={{pathname: '/my-posts'}} >
+                        <div className="col-2 bg-primary">
+                            <Link className="text-decoration-none link-light" to={{pathname: '/my-posts'}} >
                             My Post
                             </Link>
                         </div>
-                        <div className="col bg-danger">
+                        <div className="col bg-secondary">
+                            <div className="text-secondary">
                             Empty Space
+                            </div>
                         </div>
                     </div>
                     <div className="row">
@@ -90,12 +77,13 @@ function MainComponent() {
                                 <Route path="/update-review" element={<UpdateReviewComponent/>}></Route>  
                                 <Route path="forum-post" element={<ForumPostComponent/>}></Route>  
                                 <Route path="/update-forum" element={<UpdateForumComponent/>}></Route> 
+                                <Route path="/review-success" element={<ReviewSuccessComponent/>}></Route>
                             </Routes> 
                     </div>
                     </Router>
                 </div>
             
-        </div>
+            </div>
 }
 
 export default MainComponent;
