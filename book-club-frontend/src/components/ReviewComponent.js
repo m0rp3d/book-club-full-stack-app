@@ -18,8 +18,6 @@ function ReviewComponent() {
     const {accountId, setAccountId} = useContext(AuthContext);
     const {role, setRole} = useContext(RoleContext);
 
-    
-
     const [pageNumber, setPageNumber] = useState(0);
     const usersPerPage = 10;
     const pagesVisited = pageNumber * usersPerPage;
@@ -28,13 +26,27 @@ function ReviewComponent() {
                             .map((review, index) => {
                                 return (
                                 <tr key = {index}>
-                                    <td>{review.datePosted}</td>
+                                    <td>{formatDate(review.datePosted)}</td>
                                     
                                     <td>{review.comment}</td>   
                                 </tr>
                                 );
                             });
     const pageCount = Math.ceil(reviews.length / usersPerPage);
+
+    function formatDate(passedReview) {
+        let day = new Date(passedReview).getDate();
+        let month = new Date(passedReview).getMonth() + 1;
+        let year = new Date(passedReview).getFullYear();
+        const formattedDate = month + "-" + day + "-" + year;
+
+        return (
+            <div>
+                {formattedDate}
+            </div>
+            
+        )
+    }
 
     const changePage = ({selected}) => {
         setPageNumber(selected);

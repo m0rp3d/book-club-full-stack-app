@@ -23,8 +23,7 @@ function MyPostComponent() {
                                 return (
                                     <tr key = {index}>
                                     <td>{review.forum.bookName}</td>
-                                    <td>{review.datePosted}</td>
-                                    <td>{review.starRating}</td>
+                                    <td>{formatDate(review.datePosted)}</td>
                                     <td>{review.comment}</td>
                                     <td>
                                         <button onClick={() => clickUpdate(review)}>Edit</button>
@@ -38,6 +37,20 @@ function MyPostComponent() {
     
 
     const pageCount = Math.ceil(reviews.length / usersPerPage);
+
+    function formatDate(passedReview) {
+        let day = new Date(passedReview).getDate();
+        let month = new Date(passedReview).getMonth() + 1;
+        let year = new Date(passedReview).getFullYear();
+        const formattedDate = month + "-" + day + "-" + year;
+
+        return (
+            <div>
+                {formattedDate}
+            </div>
+            
+        )
+    }
 
     const changePage = ({selected}) => {
         setPageNumber(selected);
@@ -74,7 +87,6 @@ function MyPostComponent() {
                             <tr>
                                 <th>Book Name</th>
                                 <th>Date Posted</th>
-                                <th>Rating</th>
                                 <th>Comment</th>
                                 <th>Actions</th>
                             </tr>

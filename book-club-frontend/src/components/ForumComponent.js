@@ -24,7 +24,7 @@ function ForumComponent() {
                                 return (
                                     <tr key = {index}>
                                         <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
-                                        <td onClick={() => clickReview(forum)}>{forum.bookImage}</td>
+                                        <td onClick={() => clickReview(forum)}><img src={forum.bookImage} height={100} width={100} alt=""/></td>
                                         <td onClick={() => clickReview(forum)}>{forum.description}</td>
                                         <td>
                                             {role === "admin" && ( 
