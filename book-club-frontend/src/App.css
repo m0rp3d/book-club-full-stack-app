@@ -1,3 +1,11 @@
+.hoverOver {
+    color: black;
+}
+
+.hoverOver:hover {
+    color: red;
+}
+
 /* for pagination */
 
 .paginationBttns {

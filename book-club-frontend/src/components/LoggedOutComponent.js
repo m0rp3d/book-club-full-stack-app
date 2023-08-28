@@ -15,15 +15,14 @@ function LoggedOutComponent() {
     }, []);
 
     function goHome() {
-
         navigate("/");
     }
 
     return ( 
         <div>
             <h2>Success</h2>
-            <div>Logged out successfully</div>
-            <button onClick={goHome}>Back to home page</button>
+            <div className="mt-2">Logged out successfully</div>
+            <button className="mt-2 hoverOver" onClick={goHome}>Back to home page</button>
         </div>
     ) 
 }

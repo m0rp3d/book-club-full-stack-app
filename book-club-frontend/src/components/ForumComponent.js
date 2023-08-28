@@ -22,18 +22,22 @@ function ForumComponent() {
                             .slice(pagesVisited, pagesVisited + usersPerPage)
                             .map((forum, index) => {
                                 return (
-                                    <tr key = {index}>
-                                        <td onClick={() => clickReview(forum)}>{forum.bookName}</td>
-                                        <td onClick={() => clickReview(forum)}><img src={forum.bookImage} height={100} width={100} alt=""/></td>
-                                        <td onClick={() => clickReview(forum)}>{forum.description}</td>
-                                        <td>
-                                            {role === "admin" && ( 
-                                                                    <div>
-                                                                        <button onClick={() => clickUpdate(forum)}>Edit</button>
-                                                                        <button onClick={() => deleteForumById(forum.id)}>Delete</button>
-                                                                    </div>    
-                                                                )}
-                                        </td>
+                                    <tr key = {index} className="border-top border-bottom border-secondary">
+                                            <td onClick={() => clickReview(forum)}>
+                                               <img src={forum.bookImage} height={100} width={100} alt="" className="mt-1"/>
+                                                <div className="bottom-0 mt-1">
+                                                {forum.bookName}
+                                                </div>
+                                            </td>
+                                            <td onClick={() => clickReview(forum)}>{forum.description}</td>
+                                            <td>
+                                                {role === "admin" && ( 
+                                                                        <div>
+                                                                            <button onClick={() => clickUpdate(forum)}>Edit</button>
+                                                                            <button onClick={() => deleteForumById(forum.id)}>Delete</button>
+                                                                        </div>    
+                                                                    )}
+                                            </td>    
                                     </tr>
                                 );
                             }); 
@@ -59,7 +63,7 @@ function ForumComponent() {
 
     function IfCanPost() {
         if(role === "admin") {
-            return <div onClick={() => clickPost()}>Post a forum</div>
+            return <div className="hoverOver" onClick={() => clickPost()}>Post a forum</div>
         } 
     }
 
@@ -86,8 +90,7 @@ function ForumComponent() {
             <table>
                 <thead>
                     <tr>
-                        <th>Book Name</th>
-                        <th>Book Image</th>
+                        <th>Book</th>
                         <th>Description</th>
                         <th></th>
                     </tr>

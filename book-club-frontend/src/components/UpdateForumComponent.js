@@ -72,25 +72,25 @@ function UpdateForumComponent() {
                 <h2>Update Forum</h2>
                 
                 <form onSubmit={(event) => submit(event)}>
-                <div className="form-group">
+                <div className="form-group mt-2">
                         <label>Book Name</label>
-                        <input placeholder="Book name here" name="bookName" className="form=control"
+                        <input placeholder="Book name here" name="bookName" className="form=control ms-2"
                             value={forum.bookName} onChange={changeHandler}/>
                     </div>
-                    {errors.bookName && <p className="error">{errors.bookName}</p>}
-                    <div className="form-group">
+                    {errors.bookName && <p className="error text-danger">{errors.bookName}</p>}
+                    <div className="form-group mt-2">
                         <label>Book Image</label>
-                        <input placeholder="Book image here" name="bookImage" className="form=control"
+                        <input placeholder="Book image here" name="bookImage" className="form=control ms-2"
                             value={forum.bookImage} onChange={changeHandler}/>
                     </div>
-                    {errors.bookImage && <p className="error">{errors.bookImage}</p>}
-                    <div className="form-group">
+                    {errors.bookImage && <p className="error text-danger">{errors.bookImage}</p>}
+                    <div className="form-group mt-2">
                         <label>Description</label>
-                        <input placeholder="Description here" name="description" className="form=control"
+                        <input placeholder="Description here" name="description" className="form=control ms-2"
                             value={forum.description} onChange={changeHandler}/>
                     </div>
-                    {errors.description && <p className="error">{errors.description}</p>}
-                    <button>Update</button>
+                    {errors.description && <p className="error text-danger">{errors.description}</p>}
+                    <button className="mt-2">Update</button>
                 </form>
             </div>
         </div>

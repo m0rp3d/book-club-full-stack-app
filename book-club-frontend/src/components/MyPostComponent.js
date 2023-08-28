@@ -21,15 +21,15 @@ function MyPostComponent() {
                             .slice(pagesVisited, pagesVisited + usersPerPage)
                             .map((review, index) => {
                                 return (
-                                    <tr key = {index}>
-                                    <td>{review.forum.bookName}</td>
-                                    <td>{formatDate(review.datePosted)}</td>
-                                    <td>{review.comment}</td>
-                                    <td>
-                                        <button onClick={() => clickUpdate(review)}>Edit</button>
-                                        <button onClick={() => deleteReviewById(review.id)}>Delete</button>
-                                    </td>   
-                                </tr>
+                                    <tr key = {index} className="border border-danger mt-5">
+                                        <td>{review.forum.bookName}</td>
+                                        <td>{formatDate(review.datePosted)}</td>
+                                        <td>{review.comment}</td>
+                                        <td>
+                                            <button onClick={() => clickUpdate(review)}>Edit</button>
+                                            <button onClick={() => deleteReviewById(review.id)}>Delete</button>
+                                        </td>   
+                                    </tr>
                                 );
                                 
                             });
@@ -81,12 +81,11 @@ function MyPostComponent() {
         
         if(accountId > 0) {
             return <div >
-                   <h2>My Reviews</h2>
                     <table>
                         <thead>
                             <tr>
                                 <th>Book Name</th>
-                                <th>Date Posted</th>
+                                <th>Date</th>
                                 <th>Comment</th>
                                 <th>Actions</th>
                             </tr>

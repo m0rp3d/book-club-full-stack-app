@@ -75,15 +75,14 @@ function PostComponent() {
         <div>
             <div className="container">
                 <h2>Post Review</h2>
-                <div>Id is {review.account.id}</div>
                 <form onSubmit={(event) => submit(event)}>
-                    <div className="form-group">
+                    <div className="form-group mt-2">
                         <label>Comment</label>
-                        <input placeholder="Comment here" name="comment" className="form=control"
+                        <input placeholder="Comment here" name="comment" className="form=control ms-2"
                             value={review.comment} onChange={changeHandler}/>
                     </div>
-                    {errors.comment && <p className="error">{errors.comment}</p>}
-                    <button>Submit</button>
+                    {errors.comment && <p className="error text-danger">{errors.comment}</p>}
+                    <button className="mt-2">Submit</button>
                 </form>
             </div>
         </div>

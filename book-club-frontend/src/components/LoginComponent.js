@@ -32,6 +32,10 @@ function LoginComponent() {
         console.log("role is now set to " + role)
     }, [role]);
 
+    function clickNavigate() {
+        navigate("/sign-up")
+    }
+
     function changeHandler (event) {    
         setAccount({...account, [event.target.name]: event.target.value});
     }
@@ -101,20 +105,21 @@ function LoginComponent() {
         <div>
             <h2>Login form</h2>
             <form onSubmit={(event) => submit(event)}>
-                <div className="form-group">
+                <div className="form-group mt-2">
                     <label>Account Name</label>
-                    <input placeholder="Enter account name" name="accountName" className="form=control"
+                    <input placeholder="Enter account name" name="accountName" className="form=control ms-2"
                     value={account.accountName} onChange={changeHandler}/>
                 </div>
-                {errors.accountName && <p className="error">{errors.accountName}</p>}
-                <div className="form-group">
+                {errors.accountName && <p className="error text-danger">{errors.accountName}</p>}
+                <div className="form-group mt-2">
                     <label>Password</label>
-                    <input placeholder="Enter password" name="password" className="form=control"
+                    <input placeholder="Enter password" name="password" className="form=control ms-2"
                     value={account.password} onChange={changeHandler}/>
                 </div>
-                {errors.password && <p className="error">{errors.password}</p>}
-                <button>Submit</button>
-                <p>{loginCredentials}</p>
+                {errors.password && <p className="error text-danger">{errors.password}</p>}
+                <button className="mt-2">Submit</button>
+                <p className="mt-2 text-danger">{loginCredentials}</p>
+                <div className="mt-2 hoverOver" onClick={() => clickNavigate()}>Need to create an account? Sign Up</div>
             </form>    
         </div>
     )    

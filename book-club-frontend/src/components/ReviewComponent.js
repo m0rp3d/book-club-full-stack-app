@@ -64,7 +64,7 @@ function ReviewComponent() {
                    Login to post review   
                    </div>
         } else if (accountId > 0) {
-            return <div onClick={() => clickPost(id)}>Post a review</div>
+            return <div className="hoverOver" onClick={() => clickPost(id)}>Post a review</div>
         }
     }
     

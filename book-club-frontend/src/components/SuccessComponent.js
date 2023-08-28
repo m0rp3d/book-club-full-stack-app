@@ -13,8 +13,8 @@ function SuccessComponent() {
     return ( 
         <div>
             <h2>Success</h2>
-            <div>{message}</div>
-            <button onClick={goHome}>Back to home page</button>
+            <div className="mt-2">{message}</div>
+            <button className="mt-2 hoverOver" onClick={goHome}>Back to home page</button>
         </div>
     ) 
 }

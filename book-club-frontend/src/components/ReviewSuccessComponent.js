@@ -13,8 +13,8 @@ function ReviewSuccessComponent() {
     return ( 
         <div>
             <h2>Success</h2>
-            <div>{message}</div>
-            <button onClick={goToMyPosts}>Back to my posts</button>
+            <div className="mt-2">{message}</div>
+            <button className="mt-2 hoverOver" onClick={goToMyPosts}>Back to my posts</button>
         </div>
     ) 
 }

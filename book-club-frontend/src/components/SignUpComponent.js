@@ -139,28 +139,28 @@ function SignUpComponent() {
         <div>
             <h2>Sign Up form</h2>
             <form onSubmit={(event) => submit(event)}>
-                <div className="form-group">
+                <div className="form-group mt-2">
                     <label>Account Name</label>
-                    <input placeholder="Enter account name" name="accountName" className="form=control"
+                    <input placeholder="Enter account name" name="accountName" className="form=control ms-2"
                     value={account.accountName} onChange={changeHandler}/>
                 </div>
-                {errors.accountName && <p className="error">{errors.accountName}</p>}
-                <div className="form-group">
+                {errors.accountName && <p className="error text-danger">{errors.accountName}</p>}
+                <div className="form-group mt-2">
                     <label>Password</label>
-                    <input placeholder="Enter password" name="password" className="form=control"
+                    <input placeholder="Enter password" name="password" className="form=control ms-2"
                     value={account.password} onChange={changeHandler}/>
                 </div>
-                {errors.password && <p className="error">{errors.password}</p>}
-                <div className="form-group">
+                {errors.password && <p className="error text-danger">{errors.password}</p>}
+                <div className="form-group mt-2">
                     <label>Email</label>
-                    <input placeholder="Enter email" name="email" className="form=control"
+                    <input placeholder="Enter email" name="email" className="form=control ms-2"
                     value={account.email} onChange={changeHandler}/>
                 </div>
-                {errors.email && <p className="error">{errors.email}</p>}
-                <button >Submit</button>
+                {errors.email && <p className="error text-danger">{errors.email}</p>}
+                <button className="mt-2">Submit</button>
             </form>
             <IfAccountExist/>
-            <div onClick={() => clickPost()}>Already have an account? Log in</div>
+            <div className="mt-2 hoverOver" onClick={() => clickPost()}>Already have an account? Log in</div>
         </div>
     )    
 }
