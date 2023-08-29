@@ -1,0 +1,32 @@
+USE `book-club`;
+
+INSERT INTO account(account_name, 
+		    password, 
+		    email,
+		    profile_image, 
+		    role, 
+		    date_joined) VALUES ('johncena23',
+					 'wwe4life', 
+					 'champishere23@gmail.com',
+					 'assets/images/account_images/johncena.jpg',
+					 'admin',
+					 20230704),
+					('rmcdonald9',
+					 'bigmac32', 
+					 'ronaldmcdonald15@gmail.com',
+					 'assets/images/account_images/ronaldmcdonald.jpg',
+					 'member',
+					 20230728),
+					('gandalfgrey',
+					 'oner1ng', 
+					 'youshallnotpass9@yahoo.com',
+					 'assets/images/account_images/gandalf.jpg',
+					 'member',
+					 20230801);
+
+INSERT INTO forum(book_name, book_image, description) VALUES ('Lord of the Flies', 'assets/images/forum/lordofflies.jpg', 'The plot concerns a group of British boys who are stranded on an uninhabited island and their disastrous attempts to govern themselves'),
+							     ('It', 'assets/images/forum/it.jpg', 'It is a 1986 horror novel by American author Stephen King'),
+							     ('Alice In Wonderland', 'assets/images/forum/aliceinwonderland.jpg', 'A young girl follows a rabit and falls into a mysterious world');
+
+
+INSERT INTO review(date_posted, comment, star_rating, account_id, forum_id) VALUES (20230704, 'Good book, 10/10', 4.5, 1, 1);
