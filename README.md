@@ -5,3 +5,9 @@ A fullstack web app using React on the frontend and Spring Boot on the backend. 
 
 The app uses custom validation for creating an account. Proper formatting is thus required for creating an email, password, and account name. Error validation will display to the user logging in or signing up for an account. Validation is also used for posting a comment or updating a comment. Axios is used on the React frontend to make http requests to the backend where spring restcontroller is used to handle rests apis. ReactPaginate allows pagination to be used on the frontend to display a larger amount of forums than would be possible under the default React option. UseContext is used in React to store a signed in account for any component in the app and to logout from the account. User accounts can have either the 'member' or 'admin' role, where the admin role can create, edit, and delete forums. The admin role can also perform all the actions a member user can.
 
+Here are some demos to demonstrate what this app can do:
+
+Uploading book-club-app-basic-functionality.mp4…
+
+Uploading book-club-app-using-admin-account.mp4…
+
