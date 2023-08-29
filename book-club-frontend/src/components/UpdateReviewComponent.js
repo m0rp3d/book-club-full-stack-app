@@ -66,16 +66,16 @@ function UpdateReviewComponent() {
     return ( 
         <div>
             <div className="container">
-                <h2>Post Review</h2>
+                <h2 className="mt-2">Update Review</h2>
                 
                 <form onSubmit={(event) => submit(event)}>
-                    <div className="form-group">
+                    <div className="form-group mt-5">
                         <label>Comment</label>
-                        <input placeholder="Comment here" name="comment" className="form=control"
+                        <input placeholder="Comment here" name="comment" className="form=control ms-2"
                             value={review.comment} onChange={changeHandler}/>
                     </div>
                     {errors.comment && <p className="error">{errors.comment}</p>}
-                    <button>Update</button>
+                    <button className="mt-3 mb-4 hoverOver">Update</button>
                 </form>
             </div>
         </div>

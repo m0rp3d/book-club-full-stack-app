@@ -30,7 +30,7 @@ function ForumComponent() {
                                                 </div>
                                             </td>
                                             <td onClick={() => clickReview(forum)}>{forum.description}</td>
-                                            <td>
+                                            <td className="tableColumn">
                                                 {role === "admin" && ( 
                                                                         <div>
                                                                             <button onClick={() => clickUpdate(forum)}>Edit</button>
@@ -92,7 +92,7 @@ function ForumComponent() {
                     <tr>
                         <th>Book</th>
                         <th>Description</th>
-                        <th></th>
+                        <th className="tableColumn"></th>
                     </tr>
                 </thead>
 

@@ -69,7 +69,7 @@ function UpdateForumComponent() {
     return ( 
         <div>
             <div className="container">
-                <h2>Update Forum</h2>
+                <h2 className="mt-2">Update Forum</h2>
                 
                 <form onSubmit={(event) => submit(event)}>
                 <div className="form-group mt-2">
@@ -90,7 +90,7 @@ function UpdateForumComponent() {
                             value={forum.description} onChange={changeHandler}/>
                     </div>
                     {errors.description && <p className="error text-danger">{errors.description}</p>}
-                    <button className="mt-2">Update</button>
+                    <button className="mt-2 mb-4">Update</button>
                 </form>
             </div>
         </div>

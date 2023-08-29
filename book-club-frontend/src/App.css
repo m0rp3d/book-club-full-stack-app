@@ -1,3 +1,11 @@
+.tableRow {
+    border-bottom: 1px solid;
+}
+
+.tableColumn {
+    padding-left: 15px;
+}
+
 .hoverOver {
     color: black;
 }

@@ -147,7 +147,7 @@ function SignUpComponent() {
                 {errors.accountName && <p className="error text-danger">{errors.accountName}</p>}
                 <div className="form-group mt-2">
                     <label>Password</label>
-                    <input placeholder="Enter password" name="password" className="form=control ms-2"
+                    <input type="password" placeholder="Enter password" name="password" className="form=control ms-2"
                     value={account.password} onChange={changeHandler}/>
                 </div>
                 {errors.password && <p className="error text-danger">{errors.password}</p>}

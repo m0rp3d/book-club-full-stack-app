@@ -25,8 +25,12 @@ function ReviewComponent() {
                             .slice(pagesVisited, pagesVisited + usersPerPage)
                             .map((review, index) => {
                                 return (
-                                <tr key = {index}>
-                                    <td>{formatDate(review.datePosted)}</td>
+                                <tr key = {index} className="tableRow">
+                                    <td>
+                                        <div>{review.account.accountName}</div>
+                                        <img src={review.account.profileImage} height={100} width={100} alt="" className="mt-1"/>
+                                        <div>{formatDate(review.datePosted)}</div>
+                                    </td>
                                     
                                     <td>{review.comment}</td>   
                                 </tr>
@@ -60,12 +64,17 @@ function ReviewComponent() {
 
     function IfCanPost() {
         if(accountId === 0) {
-            return <div >
+            return <div onClick={goToLogin} className="hoverOver">
                    Login to post review   
                    </div>
         } else if (accountId > 0) {
             return <div className="hoverOver" onClick={() => clickPost(id)}>Post a review</div>
         }
+    }
+
+    function goToLogin() {
+
+        navigate("/login");
     }
     
     useEffect(() => {
@@ -85,7 +94,7 @@ function ReviewComponent() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Date Posted</th>
+                                <th>User</th>
                                 
                                 <th>Comment</th>
                             </tr>

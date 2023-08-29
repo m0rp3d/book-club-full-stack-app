@@ -21,11 +21,14 @@ function MyPostComponent() {
                             .slice(pagesVisited, pagesVisited + usersPerPage)
                             .map((review, index) => {
                                 return (
-                                    <tr key = {index} className="border border-danger mt-5">
-                                        <td>{review.forum.bookName}</td>
-                                        <td>{formatDate(review.datePosted)}</td>
-                                        <td>{review.comment}</td>
+                                    <tr key = {index} className="tableRow mt-5">
                                         <td>
+                                            <div>{review.forum.bookName}</div>
+                                            <img src={review.forum.bookImage} height={100} width={100} alt="" className="mt-1"/>
+                                            <div>{formatDate(review.datePosted)}</div>
+                                        </td>
+                                        <td>{review.comment}</td>
+                                        <td className="tableColumn">
                                             <button onClick={() => clickUpdate(review)}>Edit</button>
                                             <button onClick={() => deleteReviewById(review.id)}>Delete</button>
                                         </td>   
@@ -76,6 +79,11 @@ function MyPostComponent() {
         navigate("/update-review", {state: review.id})
     }
 
+    function goToLogin() {
+
+        navigate("/login");
+    }
+
 
     function IfAccountExist() {
         
@@ -84,10 +92,9 @@ function MyPostComponent() {
                     <table>
                         <thead>
                             <tr>
-                                <th>Book Name</th>
-                                <th>Date</th>
+                                <th>Book</th>
                                 <th>Comment</th>
-                                <th>Actions</th>
+                                <th className="tableColumn">Actions</th>
                             </tr>
                         </thead>
 
@@ -111,7 +118,7 @@ function MyPostComponent() {
                    </div>
                    
         } else if (accountId === 0){
-            return <div>
+            return <div onClick={goToLogin} className="hoverOver">
                 Log in to view your reviews
             </div>
         }

@@ -14,7 +14,7 @@ const validation = (account) => {
     if(!account.password) {
         errors.password = "Password is required";
     } else if (account.password.length < 8) {
-        errors.passowrd = "Password must be  eight characters or more.";
+        errors.password = "Password must be  eight characters or more.";
     }
 
     if(!account.email) {

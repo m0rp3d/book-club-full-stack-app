@@ -14,7 +14,7 @@ function SuccessComponent() {
         <div>
             <h2>Success</h2>
             <div className="mt-2">{message}</div>
-            <button className="mt-2 hoverOver" onClick={goHome}>Back to home page</button>
+            <button className="mt-2 mb-4 hoverOver" onClick={goHome}>Back to home page</button>
         </div>
     ) 
 }

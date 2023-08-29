@@ -74,15 +74,15 @@ function PostComponent() {
     return ( 
         <div>
             <div className="container">
-                <h2>Post Review</h2>
+                <h2 className="mt-2">Post Comment</h2>
                 <form onSubmit={(event) => submit(event)}>
-                    <div className="form-group mt-2">
+                    <div className="form-group mt-4">
                         <label>Comment</label>
                         <input placeholder="Comment here" name="comment" className="form=control ms-2"
                             value={review.comment} onChange={changeHandler}/>
                     </div>
                     {errors.comment && <p className="error text-danger">{errors.comment}</p>}
-                    <button className="mt-2">Submit</button>
+                    <button className="mt-2 mb-4">Submit</button>
                 </form>
             </div>
         </div>
