@@ -7,7 +7,9 @@ The app uses custom validation for creating an account. Proper formatting is thu
 
 Here are some demos to demonstrate what this app can do:
 
-Uploading book-club-app-basic-functionality.mp4…
 
-Uploading book-club-app-using-admin-account.mp4…
+https://github.com/m0rp3d/book-club-full-stack-app/assets/104413936/da31e87f-0e70-4071-abb6-59bd42cbf408
+
+https://github.com/m0rp3d/book-club-full-stack-app/assets/104413936/45d98659-5d6e-4989-a6a6-b522a4fe6040
+
 
